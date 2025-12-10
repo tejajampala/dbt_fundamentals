@@ -17,7 +17,10 @@ sources:
             - name: id
               data_tests:
                 - unique
-                - not_null                
+                - not_null
+            - name: first_name
+              data_tests:
+                - dbt_utils.not_empty_string
         - name: orders
           freshness: null
           columns:
@@ -39,3 +42,9 @@ sources:
                 - relationships:
                     field: id
                     to: source('jaffle_shop', 'customers')
+        - name: order_items
+          columns:
+            - name: product_price
+              data_tests:
+                - greater_than_0
+
